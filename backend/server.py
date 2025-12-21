@@ -214,6 +214,12 @@ async def get_prediction(request: AstroRequest):
         # Get Vdasha (major periods)
         vdasha_response = await call_astrology_api("major_vdasha", birth_data)
         
+        # Log the vdasha response for debugging
+        logging.info(f"Vdasha response type: {type(vdasha_response)}")
+        logging.info(f"Vdasha response keys: {vdasha_response.keys() if isinstance(vdasha_response, dict) else 'Not a dict'}")
+        if isinstance(vdasha_response, dict):
+            logging.info(f"First vdasha entry: {vdasha_response.get('major_vdasha', [])[:1] if 'major_vdasha' in vdasha_response else 'No major_vdasha key'}")
+        
         # Process planets data
         planets_list = []
         if isinstance(planets_response, list):
