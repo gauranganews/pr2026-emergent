@@ -1,0 +1,64 @@
+{
+  "timestamp": "20251221_103143",
+  "total_tests": 8,
+  "passed_tests": 7,
+  "success_rate": "87.5%",
+  "test_details": [
+    {
+      "name": "Root API Endpoint",
+      "success": true,
+      "status_code": 200,
+      "expected_status": 200,
+      "response_preview": "{'message': 'Astro Prediction API'}"
+    },
+    {
+      "name": "City Search - Empty Query",
+      "success": true,
+      "status_code": 200,
+      "expected_status": 200,
+      "response_preview": ""
+    },
+    {
+      "name": "City Search - Short Query",
+      "success": true,
+      "status_code": 200,
+      "expected_status": 200,
+      "response_preview": ""
+    },
+    {
+      "name": "City Search - Moscow",
+      "success": true,
+      "status_code": 200,
+      "expected_status": 200,
+      "response_preview": "[{'name': 'Москва, Центральный федеральный округ, Россия', 'latitude': 55.625578, 'longitude': 37.6063916, 'timezone': 3.0, 'country': 'Россия'}, {'name': 'Москва, Центральный федеральный округ, Росси"
+    },
+    {
+      "name": "City Search - Russian City (Москва)",
+      "success": true,
+      "status_code": 200,
+      "expected_status": 200,
+      "response_preview": "[{'name': 'Москва, Центральный федеральный округ, Россия', 'latitude': 55.625578, 'longitude': 37.6063916, 'timezone': 3.0, 'country': 'Россия'}, {'name': 'Москва, Центральный федеральный округ, Росси"
+    },
+    {
+      "name": "Astro Prediction - Valid Data",
+      "success": true,
+      "status_code": 200,
+      "expected_status": 200,
+      "response_preview": "{'planets': [{'name': 'Sun', 'sign': 'Taurus', 'degree': 0.6502119223145009, 'nakshatra': 'Krittika', 'house': 9}, {'name': 'Moon', 'sign': 'Capricorn', 'degree': 3.1788797891485956, 'nakshatra': 'Utt"
+    },
+    {
+      "name": "Astro Prediction - Invalid Date",
+      "success": false,
+      "status_code": 520,
+      "expected_status": 422,
+      "response_preview": "{'detail': 'Prediction error: list index out of range'}"
+    },
+    {
+      "name": "Astro Prediction - Missing Fields",
+      "success": true,
+      "status_code": 422,
+      "expected_status": 422,
+      "response_preview": "{'detail': [{'type': 'missing', 'loc': ['body', 'birthTime'], 'msg': 'Field required', 'input': {'birthDate': '1990-05-15'}, 'url': 'https://errors.pydantic.dev/2.12/v/missing'}, {'type': 'missing', '"
+    }
+  ]
+}
