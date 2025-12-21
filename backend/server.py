@@ -267,8 +267,12 @@ async def get_prediction(request: AstroRequest):
                 
                 if start_date and end_date:
                     try:
-                        start_parts = start_date.split('-')
-                        end_parts = end_date.split('-')
+                        # Extract only the date part (before time)
+                        start_date_part = start_date.split()[0] if ' ' in start_date else start_date
+                        end_date_part = end_date.split()[0] if ' ' in end_date else end_date
+                        
+                        start_parts = start_date_part.split('-')
+                        end_parts = end_date_part.split('-')
                         
                         if len(start_parts) == 3 and len(end_parts) == 3:
                             start_year = int(start_parts[2])
