@@ -209,17 +209,26 @@ async def get_prediction(request: AstroRequest):
                 start_date = vdasha.get('start', '')
                 end_date = vdasha.get('end', '')
                 
-                # Simple check if 2026 falls within the period
+                # Parse dates - format is DD-MM-YYYY
                 if start_date and end_date:
-                    start_year = int(start_date.split('-')[2]) if '-' in start_date else 0
-                    end_year = int(end_date.split('-')[2]) if '-' in end_date else 0
-                    
-                    if start_year <= 2026 <= end_year:
-                        vdasha_list.append({
-                            "planet": vdasha.get('planet', ''),
-                            "start": start_date,
-                            "end": end_date
-                        })
+                    try:
+                        # Split date format DD-MM-YYYY
+                        start_parts = start_date.split('-')
+                        end_parts = end_date.split('-')
+                        
+                        if len(start_parts) == 3 and len(end_parts) == 3:
+                            start_year = int(start_parts[2])
+                            end_year = int(end_parts[2])
+                            
+                            # Check if 2026 falls within the period
+                            if start_year <= 2026 <= end_year:
+                                vdasha_list.append({
+                                    "planet": vdasha.get('planet', ''),
+                                    "start": start_date,
+                                    "end": end_date
+                                })
+                    except (ValueError, IndexError) as e:
+                        logging.warning(f"Failed to parse vdasha dates: {start_date} - {end_date}: {str(e)}")
         
         # Prepare data for GPT
         astro_data_text = f"""Астрологические данные:
