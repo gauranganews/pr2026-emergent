@@ -230,6 +230,12 @@ async def get_prediction(request: AstroRequest):
         vdasha_list = []
         # API returns a list directly, not a dict with 'major_vdasha' key
         if isinstance(vdasha_response, list):
+            # Log all periods for debugging
+            logging.info(f"Total vdasha periods: {len(vdasha_response)}")
+            if vdasha_response:
+                logging.info(f"First period: {vdasha_response[0]}")
+                logging.info(f"Last period: {vdasha_response[-1]}")
+            
             for vdasha in vdasha_response:
                 # Check if this vdasha includes 2026
                 start_date = vdasha.get('start', '')
@@ -248,6 +254,7 @@ async def get_prediction(request: AstroRequest):
                             
                             # Check if 2026 falls within the period
                             if start_year <= 2026 <= end_year:
+                                logging.info(f"Found matching period: {vdasha.get('planet')} from {start_date} to {end_date}")
                                 vdasha_list.append({
                                     "planet": vdasha.get('planet', ''),
                                     "start": start_date,
