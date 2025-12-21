@@ -165,20 +165,45 @@ async def search_city(request: CitySearchRequest):
 async def get_prediction(request: AstroRequest):
     """Get astrological prediction for 2026"""
     try:
-        # Parse date and time
-        date_parts = request.birthDate.split('-')
-        time_parts = request.birthTime.split(':')
-        
-        birth_data = {
-            "day": int(date_parts[2]),
-            "month": int(date_parts[1]),
-            "year": int(date_parts[0]),
-            "hour": int(time_parts[0]),
-            "min": int(time_parts[1]),
-            "lat": request.latitude,
-            "lon": request.longitude,
-            "tzone": request.timezone
-        }
+        # Validate and parse date and time
+        try:
+            date_parts = request.birthDate.split('-')
+            time_parts = request.birthTime.split(':')
+            
+            if len(date_parts) != 3 or len(time_parts) != 2:
+                raise HTTPException(
+                    status_code=422,
+                    detail="Неверный формат даты или времени. Используйте YYYY-MM-DD и HH:MM"
+                )
+            
+            birth_data = {
+                "day": int(date_parts[2]),
+                "month": int(date_parts[1]),
+                "year": int(date_parts[0]),
+                "hour": int(time_parts[0]),
+                "min": int(time_parts[1]),
+                "lat": request.latitude,
+                "lon": request.longitude,
+                "tzone": request.timezone
+            }
+            
+            # Basic validation
+            if not (1 <= birth_data["day"] <= 31):
+                raise HTTPException(status_code=422, detail="День должен быть от 1 до 31")
+            if not (1 <= birth_data["month"] <= 12):
+                raise HTTPException(status_code=422, detail="Месяц должен быть от 1 до 12")
+            if not (1900 <= birth_data["year"] <= 2100):
+                raise HTTPException(status_code=422, detail="Год должен быть от 1900 до 2100")
+            if not (0 <= birth_data["hour"] <= 23):
+                raise HTTPException(status_code=422, detail="Час должен быть от 0 до 23")
+            if not (0 <= birth_data["min"] <= 59):
+                raise HTTPException(status_code=422, detail="Минуты должны быть от 0 до 59")
+                
+        except ValueError:
+            raise HTTPException(
+                status_code=422,
+                detail="Неверный формат данных. Проверьте правильность введённых значений"
+            )
         
         # Get planets data
         planets_response = await call_astrology_api("planets", birth_data)
