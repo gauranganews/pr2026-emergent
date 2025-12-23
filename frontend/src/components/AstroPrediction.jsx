@@ -99,13 +99,13 @@ const AstroPrediction = () => {
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-4">
             <Stars className="w-8 h-8 text-purple-400 mr-2" />
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 via-violet-400 to-indigo-400 bg-clip-text text-transparent">
-              Астро Прогноз 2026
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-purple-400 via-violet-400 to-indigo-400 bg-clip-text text-transparent">
+              Бесплатный краткий астропрогноз на 2026 год по вашей карте
             </h1>
             <Moon className="w-8 h-8 text-purple-400 ml-2" />
           </div>
           <p className="text-slate-400 text-lg">
-            Узнайте, что готовят вам звёзды в 2026 году
+            Для подписчиков Берта Маковера
           </p>
         </div>
 
