@@ -288,11 +288,14 @@ async def get_prediction(request: AstroRequest):
         planets_list = []
         if isinstance(planets_response, list):
             for planet in planets_response:
+                planet_name = planet.get('name', '')
+                sign_name = planet.get('sign', '')
+                nakshatra_name = planet.get('nakshatra', '')
+                
                 planets_list.append({
-                    "name": planet.get('name', ''),
-                    "sign": planet.get('sign', ''),
-                    "degree": planet.get('normDegree', ''),
-                    "nakshatra": planet.get('nakshatra', ''),
+                    "name": PLANET_NAMES_RU.get(planet_name, planet_name),
+                    "sign": ZODIAC_SIGNS_RU.get(sign_name, sign_name),
+                    "nakshatra": NAKSHATRA_NAMES_RU.get(nakshatra_name, nakshatra_name),
                     "house": planet.get('house', '')
                 })
         
