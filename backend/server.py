@@ -325,8 +325,9 @@ async def get_prediction(request: AstroRequest):
                             
                             # Check if 2026 falls within the period
                             if start_year <= 2026 <= end_year:
+                                planet_name = vdasha.get('planet', '')
                                 vdasha_list.append({
-                                    "planet": vdasha.get('planet', ''),
+                                    "planet": PLANET_NAMES_RU.get(planet_name, planet_name),
                                     "start": start_date,
                                     "end": end_date
                                 })
@@ -352,8 +353,9 @@ async def get_prediction(request: AstroRequest):
                             end_year = int(end_parts[2])
                             
                             if start_year <= 2026 <= end_year:
+                                planet_name = vdasha.get('planet', '')
                                 vdasha_list.append({
-                                    "planet": vdasha.get('planet', ''),
+                                    "planet": PLANET_NAMES_RU.get(planet_name, planet_name),
                                     "start": start_date,
                                     "end": end_date
                                 })
@@ -363,21 +365,29 @@ async def get_prediction(request: AstroRequest):
         # Prepare data for GPT
         astro_data_text = f"""Астрологические данные:
         
-Положение планет:
-{chr(10).join([f"- {p['name']}: {p['sign']}, {p['degree']}°, Накшатра: {p['nakshatra']}" for p in planets_list])}
+Положение планет в натальной карте:
+{chr(10).join([f"- {p['name']}: в знаке {p['sign']}, Накшатра {p['nakshatra']}, {p['house']} дом" for p in planets_list])}
 
-Периоды (Махадаша) на 2026 год:
-{chr(10).join([f"- {v['planet']}: с {v['start']} по {v['end']}" for v in vdasha_list])}
+Махадаша на 2026 год:
+{chr(10).join([f"- Планета {v['planet']}: период с {v['start']} по {v['end']}" for v in vdasha_list])}
 """
         
         # Generate prediction using GPT-5.1
         chat = LlmChat(
             api_key=EMERGENT_LLM_KEY,
             session_id=f"astro_{datetime.now(timezone.utc).timestamp()}",
-            system_message="Ты опытный астролог. Отвечай на русском языке."
+            system_message="Ты опытный ведический астролог. Отвечай на русском языке."
         ).with_model("openai", "gpt-5.1")
         
-        prompt = f"{astro_data_text}\n\nСоставь краткий астрологический прогноз на 2026 год для человека в один абзац. Объясни основные тенденции года и смены периодов. Чего ожидать и к чему готовиться."
+        prompt = f"""{astro_data_text}
+
+Составь персонализированный прогноз на 2026 год (1-2 абзаца):
+
+Проанализируй натальную карту и текущую Махадашу. В первом абзаце опиши ключевые энергии года: какие сферы жизни будут в фокусе (через дома и планеты-управители Махадаши), какая общая тональность периода, какие возможности и вызовы несёт эта планетарная комбинация. Учитывай силу планет в натале, их аспекты и положение в домах.
+
+Во втором абзаце дай практические рекомендации: на что направить внимание для максимальной реализации потенциала периода, какие качества развивать, каких действий избегать. Заверши позитивным акцентом - какой результат человек может получить при осознанной работе с энергиями Махадаши.
+
+Стиль: конкретный, без общих фраз, с акцентом на практическую пользу. Избегай негатива - даже напряжённые конфигурации описывай как зоны роста."""
         
         user_message = UserMessage(text=prompt)
         prediction = await chat.send_message(user_message)
