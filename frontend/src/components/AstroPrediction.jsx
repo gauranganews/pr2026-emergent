@@ -316,6 +316,9 @@ const AstroPrediction = () => {
                     <Moon className="w-6 h-6 text-purple-400 mr-2" />
                     Периоды (Махадаша) на 2026 год
                   </CardTitle>
+                  <p className="text-sm text-slate-400 mt-2">
+                    Расчет по системе Вимшоттари Даша с использованием Саваны года (360 дней)
+                  </p>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
