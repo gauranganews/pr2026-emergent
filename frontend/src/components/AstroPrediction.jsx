@@ -298,7 +298,6 @@ const AstroPrediction = () => {
                       </h3>
                       <div className="text-sm text-slate-300 space-y-1">
                         <p>Знак: {planet.sign}</p>
-                        <p>Градус: {planet.degree}°</p>
                         <p>Накшатра: {planet.nakshatra}</p>
                         <p>Дом: {planet.house}</p>
                       </div>
