@@ -10,7 +10,7 @@ from typing import List, Optional, Dict, Any
 from datetime import datetime, timezone
 import httpx
 import base64
-from emergentintegrations.llm.chat import LlmChat, UserMessage
+from openai import AsyncOpenAI
 
 
 ROOT_DIR = Path(__file__).parent
@@ -379,12 +379,8 @@ async def get_prediction(request: AstroRequest):
 {chr(10).join([f"- Планета {v['planet']}: период с {v['start']} по {v['end']}" for v in vdasha_list])}
 """
         
-        # Generate prediction using GPT-5.1
-        chat = LlmChat(
-            api_key=EMERGENT_LLM_KEY,
-            session_id=f"astro_{datetime.now(timezone.utc).timestamp()}",
-            system_message="Ты опытный ведический астролог. Отвечай на русском языке."
-        ).with_model("openai", "gpt-5.1")
+        # Generate prediction using OpenAI
+        client = AsyncOpenAI(api_key=EMERGENT_LLM_KEY)
         
         prompt = f"""{astro_data_text}
 
@@ -396,8 +392,17 @@ async def get_prediction(request: AstroRequest):
 
 Стиль: конкретный, без общих фраз, с акцентом на практическую пользу. Избегай негатива - даже напряжённые конфигурации описывай как зоны роста."""
         
-        user_message = UserMessage(text=prompt)
-        prediction = await chat.send_message(user_message)
+        response = await client.chat.completions.create(
+            model="gpt-4o",  # можно изменить на gpt-4, gpt-3.5-turbo
+            messages=[
+                {"role": "system", "content": "Ты опытный ведический астролог. Отвечай на русском языке."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.7,
+            max_tokens=2000
+        )
+        
+        prediction = response.choices[0].message.content
         
         return AstroResponse(
             planets=planets_list,
@@ -420,6 +425,28 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Serve static files from React build
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
+# Mount static files if build directory exists
+frontend_build_path = ROOT_DIR.parent / "frontend" / "build"
+if frontend_build_path.exists():
+    app.mount("/static", StaticFiles(directory=str(frontend_build_path / "static")), name="static")
+    
+    @app.get("/", response_class=FileResponse)
+    async def serve_frontend():
+        return FileResponse(str(frontend_build_path / "index.html"))
+    
+    @app.get("/{full_path:path}", response_class=FileResponse)
+    async def catch_all(full_path: str):
+        # Check if requesting a file
+        file_path = frontend_build_path / full_path
+        if file_path.is_file():
+            return FileResponse(str(file_path))
+        # Otherwise return index.html for client-side routing
+        return FileResponse(str(frontend_build_path / "index.html"))
 
 # Configure logging
 logging.basicConfig(
