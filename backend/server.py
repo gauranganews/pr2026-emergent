@@ -35,6 +35,74 @@ ASTROLOGY_BASE_URL = "https://json.astrologyapi.com/v1"
 # Emergent LLM Key
 EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY')
 
+# Translation dictionaries
+PLANET_NAMES_RU = {
+    "Sun": "Солнце",
+    "Moon": "Луна",
+    "Mars": "Марс",
+    "Mercury": "Меркурий",
+    "Jupiter": "Юпитер",
+    "Venus": "Венера",
+    "Saturn": "Сатурн",
+    "Rahu": "Раху",
+    "Ketu": "Кету",
+    "Ascendant": "Асцендент"
+}
+
+ZODIAC_SIGNS_RU = {
+    "Aries": "Овен",
+    "Taurus": "Телец",
+    "Gemini": "Близнецы",
+    "Cancer": "Рак",
+    "Leo": "Лев",
+    "Virgo": "Дева",
+    "Libra": "Весы",
+    "Scorpio": "Скорпион",
+    "Sagittarius": "Стрелец",
+    "Capricorn": "Козерог",
+    "Aquarius": "Водолей",
+    "Pisces": "Рыбы"
+}
+
+NAKSHATRA_NAMES_RU = {
+    "Ashwini": "Ашвини",
+    "Bharani": "Бхарани",
+    "Krittika": "Криттика",
+    "Rohini": "Рохини",
+    "Mrigashirsha": "Мригашира",
+    "Mrigashira": "Мригашира",
+    "Ardra": "Ардра",
+    "Punarvasu": "Пунарвасу",
+    "Pushya": "Пушья",
+    "Ashlesha": "Ашлеша",
+    "Magha": "Магха",
+    "Purva Phalguni": "Пурва Пхалгуни",
+    "P.Phalguni": "Пурва Пхалгуни",
+    "Uttara Phalguni": "Уттара Пхалгуни",
+    "U.Phalguni": "Уттара Пхалгуни",
+    "Hasta": "Хаста",
+    "Chitra": "Читра",
+    "Swati": "Свати",
+    "Vishakha": "Вишакха",
+    "Anuradha": "Анурадха",
+    "Jyeshtha": "Джйештха",
+    "Mula": "Мула",
+    "Moola": "Мула",
+    "Purva Ashadha": "Пурва Ашадха",
+    "P.Ashadha": "Пурва Ашадха",
+    "Uttara Ashadha": "Уттара Ашадха",
+    "U.Ashadha": "Уттара Ашадха",
+    "Shravana": "Шравана",
+    "Dhanishta": "Дхаништха",
+    "Shatabhisha": "Шатабхиша",
+    "Shatabhishak": "Шатабхиша",
+    "Purva Bhadrapada": "Пурва Бхадрапада",
+    "P.Bhadrapada": "Пурва Бхадрапада",
+    "Uttara Bhadrapada": "Уттара Бхадрапада",
+    "U.Bhadrapada": "Уттара Бхадрапада",
+    "Revati": "Ревати"
+}
+
 # Models
 class BirthData(BaseModel):
     day: int
