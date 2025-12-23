@@ -212,6 +212,8 @@ async def get_prediction(request: AstroRequest):
         birth_details_response = await call_astrology_api("birth_details", birth_data)
         
         # Get Vdasha (major periods)
+        # Note: AstrologyAPI uses 360-day Savana year (Vimshottari Dasha standard)
+        # This is the traditional Vedic calculation method
         vdasha_response = await call_astrology_api("major_vdasha", birth_data)
         
         # Process planets data
