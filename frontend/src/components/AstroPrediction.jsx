@@ -354,6 +354,81 @@ const AstroPrediction = () => {
                 </p>
               </CardContent>
             </Card>
+
+            {/* CTA Block - Full Forecast */}
+            <Card className="bg-gradient-to-br from-purple-900/30 via-indigo-900/30 to-slate-900 border-purple-700/50 shadow-2xl" data-testid="cta-card">
+              <CardContent className="pt-8">
+                <div className="text-center space-y-6">
+                  <h2 className="text-3xl font-bold text-slate-100">
+                    Получите полный астрологический прогноз на 2026 год от Берта Маковера
+                  </h2>
+                  
+                  <Button
+                    onClick={() => window.open('https://get.vedicastrologyonline.ru/2026', '_blank')}
+                    className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold py-6 px-8 text-lg transition-all duration-300"
+                    data-testid="full-forecast-button"
+                  >
+                    <Stars className="mr-2 h-5 w-5" />
+                    Заказать полный прогноз
+                  </Button>
+
+                  <div className="text-slate-300 text-base leading-relaxed max-w-2xl mx-auto space-y-3">
+                    <p>С учётом главного периода, подпериода и подподпериода.</p>
+                    <p>По всем основным сферам жизни.</p>
+                    <p>Анализ каждого месяца и его влияние на ваше состояние.</p>
+                    <p>А также рекомендации и практики для гармонизации неблагоприятного влияния.</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Examples Block */}
+            <Card className="bg-slate-900 border-slate-800 shadow-2xl" data-testid="examples-card">
+              <CardHeader>
+                <CardTitle className="text-2xl text-slate-100 text-center">
+                  Примеры прогнозов
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Button
+                    onClick={() => window.open('https://docs.google.com/document/d/1pUxAPeaNXqFBuXpUkZ7RRxZGg_l6E3oBePHUdQ5aKpE/edit?usp=sharing', '_blank')}
+                    variant="outline"
+                    className="bg-slate-800 border-slate-700 text-slate-100 hover:bg-slate-700 hover:border-purple-500 py-8 text-base font-medium transition-all duration-300"
+                    data-testid="example-brief"
+                  >
+                    <div className="flex flex-col items-center gap-2">
+                      <span className="text-lg font-semibold">Краткий прогноз</span>
+                      <span className="text-sm text-slate-400">(текст)</span>
+                    </div>
+                  </Button>
+
+                  <Button
+                    onClick={() => window.open('https://docs.google.com/document/d/1oTqJcEghZgFHY7BqDsk6VC1PqROCJ7W3tbpVgV42RF0/edit?usp=sharing', '_blank')}
+                    variant="outline"
+                    className="bg-slate-800 border-slate-700 text-slate-100 hover:bg-slate-700 hover:border-purple-500 py-8 text-base font-medium transition-all duration-300"
+                    data-testid="example-basic"
+                  >
+                    <div className="flex flex-col items-center gap-2">
+                      <span className="text-lg font-semibold">Базовый прогноз</span>
+                      <span className="text-sm text-slate-400">(текст)</span>
+                    </div>
+                  </Button>
+
+                  <Button
+                    onClick={() => window.open('https://kinescope.io/iU3a8qJcruYue4j2GcMvQF', '_blank')}
+                    variant="outline"
+                    className="bg-slate-800 border-slate-700 text-slate-100 hover:bg-slate-700 hover:border-purple-500 py-8 text-base font-medium transition-all duration-300"
+                    data-testid="example-full"
+                  >
+                    <div className="flex flex-col items-center gap-2">
+                      <span className="text-lg font-semibold">Полный прогноз</span>
+                      <span className="text-sm text-slate-400">(видео)</span>
+                    </div>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         )}
       </div>
