@@ -80,6 +80,7 @@ NAKSHATRA_NAMES_RU = {
     "P.Phalguni": "Пурва Пхалгуни",
     "Uttara Phalguni": "Уттара Пхалгуни",
     "U.Phalguni": "Уттара Пхалгуни",
+    "Uttra Phalguni": "Уттара Пхалгуни",
     "Hasta": "Хаста",
     "Chitra": "Читра",
     "Swati": "Свати",
@@ -92,14 +93,18 @@ NAKSHATRA_NAMES_RU = {
     "P.Ashadha": "Пурва Ашадха",
     "Uttara Ashadha": "Уттара Ашадха",
     "U.Ashadha": "Уттара Ашадха",
+    "Uttra Ashadha": "Уттара Ашадха",
+    "Uttra Shadha": "Уттара Ашадха",
     "Shravana": "Шравана",
     "Dhanishta": "Дхаништха",
     "Shatabhisha": "Шатабхиша",
     "Shatabhishak": "Шатабхиша",
     "Purva Bhadrapada": "Пурва Бхадрапада",
     "P.Bhadrapada": "Пурва Бхадрапада",
+    "Purva Bhadrapad": "Пурва Бхадрапада",
     "Uttara Bhadrapada": "Уттара Бхадрапада",
     "U.Bhadrapada": "Уттара Бхадрапада",
+    "Uttra Bhadrapada": "Уттара Бхадрапада",
     "Revati": "Ревати"
 }
 
