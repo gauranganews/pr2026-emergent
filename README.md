@@ -1,1 +1,60 @@
-# Here are your Instructions
+# Астрологический Сервис Прогнозов на 2026 год
+
+Веб-приложение для получения астрологических прогнозов на основе данных рождения.
+
+## Особенности
+
+- ✨ Поиск городов с автокомплитом
+- 🌙 Расчет положения планет через AstrologyAPI.com
+- ⏰ Периоды Махадаша (Vimshottari Dasha) на 2026 год
+- 🤖 Персональные прогнозы через GPT-5.1
+- 🎨 Тёмный дизайн с градиентами
+- 🇷🇺 Полностью на русском языке
+
+## Технические детали
+
+### Расчет периодов Махадаша
+
+Приложение использует **360-дневный год Савана** для расчета периодов Vimshottari Dasha. Это традиционный стандарт ведической астрологии, где год делится на 12 месяцев по 30 дней.
+
+AstrologyAPI.com по умолчанию использует эту систему расчета без возможности изменения на 365-дневный солнечный год.
+
+### API и интеграции
+
+- **AstrologyAPI.com**: положение планет, детали рождения, периоды Vdasha
+- **OpenAI GPT-5.1**: генерация персональных прогнозов (через Emergent LLM Key)
+- **Nominatim (OpenStreetMap)**: геокодинг и поиск городов
+
+## Установка
+
+```bash
+# Backend
+cd /app/backend
+pip install -r requirements.txt
+
+# Frontend
+cd /app/frontend
+yarn install
+```
+
+## Конфигурация
+
+Создайте файл `.env` в `/app/backend/`:
+
+```
+ASTROLOGY_USER_ID=ваш_user_id
+ASTROLOGY_API_KEY=ваш_api_key
+EMERGENT_LLM_KEY=ваш_emergent_key
+```
+
+## Запуск
+
+```bash
+# Backend (автоматически через supervisor)
+sudo supervisorctl restart backend
+
+# Frontend (автоматически через supervisor)
+sudo supervisorctl restart frontend
+```
+
+Приложение будет доступно по адресу: `http://localhost:3000`
