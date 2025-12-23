@@ -67,6 +67,7 @@ ZODIAC_SIGNS_RU = {
 NAKSHATRA_NAMES_RU = {
     "Ashwini": "Ашвини",
     "Bharani": "Бхарани",
+    "Bharni": "Бхарани",
     "Krittika": "Криттика",
     "Rohini": "Рохини",
     "Mrigashirsha": "Мригашира",
@@ -96,6 +97,7 @@ NAKSHATRA_NAMES_RU = {
     "Uttra Ashadha": "Уттара Ашадха",
     "Uttra Shadha": "Уттара Ашадха",
     "Shravana": "Шравана",
+    "Shravan": "Шравана",
     "Dhanishta": "Дхаништха",
     "Shatabhisha": "Шатабхиша",
     "Shatabhishak": "Шатабхиша",
