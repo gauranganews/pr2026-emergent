@@ -192,10 +192,11 @@ const AstroPrediction = () => {
                       id="birthDate"
                       name="birthDate"
                       type="text"
-                      placeholder="ГГГГ-ММ-ДД"
+                      placeholder="ДД.ММ.ГГГГ"
                       value={formData.birthDate}
-                      onChange={handleInputChange}
+                      onChange={handleDateChange}
                       required
+                      maxLength={10}
                       className="bg-slate-800 border-slate-700 text-slate-100 mt-2"
                       data-testid="birth-date-input"
                     />
@@ -210,8 +211,9 @@ const AstroPrediction = () => {
                       type="text"
                       placeholder="ЧЧ:ММ"
                       value={formData.birthTime}
-                      onChange={handleInputChange}
+                      onChange={handleTimeChange}
                       required
+                      maxLength={5}
                       className="bg-slate-800 border-slate-700 text-slate-100 mt-2"
                       data-testid="birth-time-input"
                     />
