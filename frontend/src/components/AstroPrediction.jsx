@@ -114,7 +114,7 @@ const AstroPrediction = () => {
 
     try {
       const response = await axios.post(`${API}/get-prediction`, {
-        birthDate: formData.birthDate,
+        birthDate: convertDateFormat(formData.birthDate),
         birthTime: formData.birthTime,
         latitude: parseFloat(formData.latitude),
         longitude: parseFloat(formData.longitude),
