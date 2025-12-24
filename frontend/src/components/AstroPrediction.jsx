@@ -32,6 +32,46 @@ const AstroPrediction = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Auto-format date input (DD.MM.YYYY)
+  const handleDateChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+    
+    if (value.length >= 2) {
+      value = value.slice(0, 2) + '.' + value.slice(2);
+    }
+    if (value.length >= 5) {
+      value = value.slice(0, 5) + '.' + value.slice(5);
+    }
+    if (value.length > 10) {
+      value = value.slice(0, 10);
+    }
+    
+    setFormData((prev) => ({ ...prev, birthDate: value }));
+  };
+
+  // Auto-format time input (HH:MM)
+  const handleTimeChange = (e) => {
+    let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+    
+    if (value.length >= 2) {
+      value = value.slice(0, 2) + ':' + value.slice(2);
+    }
+    if (value.length > 5) {
+      value = value.slice(0, 5);
+    }
+    
+    setFormData((prev) => ({ ...prev, birthTime: value }));
+  };
+
+  // Convert DD.MM.YYYY to YYYY-MM-DD for API
+  const convertDateFormat = (dateStr) => {
+    const parts = dateStr.split('.');
+    if (parts.length === 3) {
+      return `${parts[2]}-${parts[1]}-${parts[0]}`;
+    }
+    return dateStr;
+  };
+
   const handleCitySearch = async (value) => {
     setCitySearch(value);
     
