@@ -369,9 +369,11 @@ const AstroPrediction = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-slate-200 text-lg leading-relaxed">
-                  {result.prediction}
-                </p>
+                <div className="text-slate-200 text-lg leading-relaxed space-y-4">
+                  {result.prediction.split('\n\n').map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))}
+                </div>
               </CardContent>
             </Card>
 
@@ -388,7 +390,6 @@ const AstroPrediction = () => {
                     className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold py-6 px-8 text-lg transition-all duration-300"
                     data-testid="full-forecast-button"
                   >
-                    <Stars className="mr-2 h-5 w-5" />
                     Заказать полный прогноз
                   </Button>
 
