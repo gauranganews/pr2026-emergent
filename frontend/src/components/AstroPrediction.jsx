@@ -103,22 +103,36 @@ const AstroPrediction = () => {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 py-8 px-4">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center mb-4">
-            <Stars className="w-8 h-8 text-purple-400 mr-2" />
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-purple-400 via-violet-400 to-indigo-400 bg-clip-text text-transparent">
-              Бесплатный краткий астропрогноз на 2026 год по вашей карте
-            </h1>
-            <Moon className="w-8 h-8 text-purple-400 ml-2" />
-          </div>
-          <p className="text-slate-400 text-lg">
-            Для подписчиков Берта Маковера
-          </p>
-        </div>
+        {/* Back Button - только когда результат показан */}
+        {!showForm && result && (
+          <Button
+            onClick={handleBackToForm}
+            variant="ghost"
+            className="mb-4 text-slate-400 hover:text-slate-100"
+            data-testid="back-button"
+          >
+            ← Назад
+          </Button>
+        )}
 
-        {/* Form Card */}
-        <Card className="bg-slate-900 border-slate-800 shadow-2xl mb-8" data-testid="prediction-form-card">
+        {/* Header - показываем только если форма видна */}
+        {showForm && (
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center mb-4">
+              <Stars className="w-8 h-8 text-purple-400 mr-2" />
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-purple-400 via-violet-400 to-indigo-400 bg-clip-text text-transparent">
+                Бесплатный краткий астропрогноз на 2026 год по вашей карте
+              </h1>
+              <Moon className="w-8 h-8 text-purple-400 ml-2" />
+            </div>
+            <p className="text-slate-400 text-lg">
+              Для подписчиков Берта Маковера
+            </p>
+          </div>
+        )}
+
+        {/* Form Card - показываем только если showForm true */}
+        {showForm && (
           <CardHeader>
             <CardTitle className="text-2xl text-slate-100 flex items-center">
               <Sun className="w-6 h-6 text-amber-400 mr-2" />
