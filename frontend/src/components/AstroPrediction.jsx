@@ -275,20 +275,18 @@ const AstroPrediction = () => {
                 data-testid="get-prediction-button"
               >
                 {loading ? (
-                  <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    Получение прогноза...
-                  </>
+                  <div className="flex flex-col items-center gap-2">
+                    <Loader2 className="h-6 w-6 animate-spin" />
+                    <span>Ожидайте, готовим ваш прогноз...</span>
+                  </div>
                 ) : (
-                  <>
-                    <Stars className="mr-2 h-5 w-5" />
-                    Получить прогноз на 2026 год
-                  </>
+                  "Получить прогноз"
                 )}
               </Button>
             </form>
           </CardContent>
         </Card>
+        )}
 
         {/* Error Message */}
         {error && (
