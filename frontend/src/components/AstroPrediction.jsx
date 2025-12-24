@@ -133,45 +133,48 @@ const AstroPrediction = () => {
 
         {/* Form Card - показываем только если showForm true */}
         {showForm && (
-          <CardHeader>
-            <CardTitle className="text-2xl text-slate-100 flex items-center">
-              <Sun className="w-6 h-6 text-amber-400 mr-2" />
-              Данные рождения
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Date and Time */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="birthDate" className="text-slate-300">
-                    Дата рождения
-                  </Label>
-                  <Input
-                    id="birthDate"
-                    name="birthDate"
-                    type="date"
-                    value={formData.birthDate}
-                    onChange={handleInputChange}
-                    required
-                    className="bg-slate-800 border-slate-700 text-slate-100 mt-2"
-                    data-testid="birth-date-input"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="birthTime" className="text-slate-300">
-                    Время рождения
-                  </Label>
-                  <Input
-                    id="birthTime"
-                    name="birthTime"
-                    type="time"
-                    value={formData.birthTime}
-                    onChange={handleInputChange}
-                    required
-                    className="bg-slate-800 border-slate-700 text-slate-100 mt-2"
-                    data-testid="birth-time-input"
-                  />
+          <Card className="bg-slate-900 border-slate-800 shadow-2xl mb-8" data-testid="prediction-form-card">
+            <CardHeader>
+              <CardTitle className="text-2xl text-slate-100 flex items-center">
+                <Sun className="w-6 h-6 text-amber-400 mr-2" />
+                Данные рождения
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Date and Time */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="birthDate" className="text-slate-300">
+                      Дата рождения
+                    </Label>
+                    <Input
+                      id="birthDate"
+                      name="birthDate"
+                      type="text"
+                      placeholder="ГГГГ-ММ-ДД"
+                      value={formData.birthDate}
+                      onChange={handleInputChange}
+                      required
+                      className="bg-slate-800 border-slate-700 text-slate-100 mt-2"
+                      data-testid="birth-date-input"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="birthTime" className="text-slate-300">
+                      Время рождения
+                    </Label>
+                    <Input
+                      id="birthTime"
+                      name="birthTime"
+                      type="text"
+                      placeholder="ЧЧ:ММ"
+                      value={formData.birthTime}
+                      onChange={handleInputChange}
+                      required
+                      className="bg-slate-800 border-slate-700 text-slate-100 mt-2"
+                      data-testid="birth-time-input"
+                    />
                 </div>
               </div>
 
