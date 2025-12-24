@@ -25,6 +25,7 @@ const AstroPrediction = () => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [showForm, setShowForm] = useState(true);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -81,6 +82,7 @@ const AstroPrediction = () => {
       });
 
       setResult(response.data);
+      setShowForm(false); // Hide form after getting results
     } catch (err) {
       console.error("Prediction error:", err);
       setError(
@@ -90,6 +92,12 @@ const AstroPrediction = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleBackToForm = () => {
+    setShowForm(true);
+    setResult(null);
+    setError(null);
   };
 
   return (
