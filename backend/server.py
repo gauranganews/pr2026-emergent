@@ -162,8 +162,8 @@ class AstroResponse(BaseModel):
 
 
 # Helper function to call Astrology API
-async def call_astrology_api(endpoint: str, data: dict) -> dict:
-    """Call Astrology API with authentication"""
+async def call_astrology_api(endpoint: str, data: dict, max_retries: int = 3) -> dict:
+    """Call Astrology API with authentication and retry logic"""
     auth_string = f"{ASTROLOGY_USER_ID}:{ASTROLOGY_API_KEY}"
     auth_bytes = auth_string.encode('ascii')
     base64_bytes = base64.b64encode(auth_bytes)
@@ -176,14 +176,38 @@ async def call_astrology_api(endpoint: str, data: dict) -> dict:
     
     url = f"{ASTROLOGY_BASE_URL}/{endpoint}"
     
-    async with httpx.AsyncClient() as client:
-        try:
-            response = await client.post(url, json=data, headers=headers, timeout=30.0)
-            response.raise_for_status()
-            return response.json()
-        except httpx.HTTPError as e:
-            logging.error(f"Astrology API error: {str(e)}")
-            raise HTTPException(status_code=500, detail=f"Astrology API error: {str(e)}")
+    for attempt in range(max_retries):
+        async with httpx.AsyncClient() as client:
+            try:
+                response = await client.post(url, json=data, headers=headers, timeout=30.0)
+                response.raise_for_status()
+                return response.json()
+            except httpx.HTTPStatusError as e:
+                if e.response.status_code == 429:
+                    # Rate limit hit, wait and retry
+                    if attempt < max_retries - 1:
+                        wait_time = (2 ** attempt) * 2  # Exponential backoff: 2, 4, 8 seconds
+                        logging.warning(f"Rate limit hit for {endpoint}, waiting {wait_time}s before retry {attempt + 1}/{max_retries}")
+                        await asyncio.sleep(wait_time)
+                        continue
+                    else:
+                        logging.error(f"Rate limit exceeded after {max_retries} attempts")
+                        raise HTTPException(
+                            status_code=429, 
+                            detail="Слишком много запросов к астрологическому сервису. Пожалуйста, подождите немного и попробуйте снова."
+                        )
+                else:
+                    logging.error(f"Astrology API error: {str(e)}")
+                    raise HTTPException(status_code=500, detail=f"Astrology API error: {str(e)}")
+            except httpx.HTTPError as e:
+                logging.error(f"Astrology API connection error: {str(e)}")
+                if attempt < max_retries - 1:
+                    wait_time = 2
+                    await asyncio.sleep(wait_time)
+                    continue
+                raise HTTPException(status_code=500, detail=f"Не удалось подключиться к астрологическому сервису: {str(e)}")
+    
+    raise HTTPException(status_code=500, detail="Не удалось получить данные после нескольких попыток")
 
 
 # Routes
