@@ -219,10 +219,23 @@ async def search_city(request: CitySearchRequest):
             
             cities = []
             for result in results:
-                # Get timezone using timezonefinder logic or default
-                # For simplicity, we'll estimate timezone based on longitude
-                # Real implementation should use a timezone API
-                timezone_offset = round(float(result['lon']) / 15)
+                lat = float(result['lat'])
+                lon = float(result['lon'])
+                
+                # Get accurate timezone using timezonefinder
+                try:
+                    timezone_str = tf.timezone_at(lat=lat, lng=lon)
+                    if timezone_str:
+                        # Get UTC offset for this timezone (current time)
+                        tz = pytz.timezone(timezone_str)
+                        utc_offset = datetime.now(tz).utcoffset()
+                        timezone_offset = utc_offset.total_seconds() / 3600
+                    else:
+                        # Fallback to simple calculation if timezone not found
+                        timezone_offset = round(lon / 15)
+                except Exception as e:
+                    logging.warning(f"Timezone lookup failed for {lat}, {lon}: {str(e)}")
+                    timezone_offset = round(lon / 15)
                 
                 city_name = result.get('display_name', result.get('name', 'Unknown'))
                 country = result.get('address', {}).get('country', '')
