@@ -37,6 +37,9 @@ ASTROLOGY_BASE_URL = "https://json.astrologyapi.com/v1"
 # Emergent LLM Key
 EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY')
 
+# Initialize TimezoneFinder
+tf = TimezoneFinder()
+
 # Translation dictionaries
 PLANET_NAMES_RU = {
     "Sun": "Солнце",
