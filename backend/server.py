@@ -13,6 +13,7 @@ import base64
 from emergentintegrations.llm.chat import LlmChat, UserMessage
 from timezonefinder import TimezoneFinder
 import pytz
+import asyncio
 
 
 ROOT_DIR = Path(__file__).parent
